@@ -60,10 +60,12 @@ Perfect for learning CRUD operations and understanding FastAPI basics.
 ### Project Structure :
 
 todo_api/
-├── main.py
 
-├── models.py
-
-└── README.md
+    ├── main.py
+    
+    ├── models.py
+    
+    └── README.md
+    
 ### Author :
 https://github.com/chems-eddine24
