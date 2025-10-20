@@ -49,19 +49,19 @@ http://127.0.0.1:8000
 ### API Endpoints :
 • Method	Endpoint	Description :
 ```
-GET	/	Welcome message
+GET	/Welcome message
 
 GET	/todos/	Retrieve all tasks
 
 GET	/todos/{task_id}/	Get task by ID
 
-POST	/todos/	Create a new task
+POST /todos/	Create a new task
 
 PATCH	/todos/{task_id}/	Update an existing task
 
-DELETE	/todos/{task_id}/	Delete a task
+DELETE /todos/{task_id}/	Delete a task
 
-GET	/todos/search	Search tasks by status or title
+GET	/todos/search	 Search tasks by status or title
 ```
 ### Project Structure :
 
