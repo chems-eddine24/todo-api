@@ -38,7 +38,8 @@ Perfect for learning CRUD operations and understanding FastAPI basics.
 
 ### Run the application:
 • uvicorn main:app --reload
-• the api will be available at : http:://127.0.0.1.8000
+The API will be available at:
+http://127.0.0.1:8000
 
 ### API Endpoints :
 • Method	Endpoint	Description :
