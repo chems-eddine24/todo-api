@@ -57,7 +57,7 @@ GET	/todos/{task_id}/	Get task by ID
 
 POST /todos/	Create a new task
 
-PATCH	/todos/{task_id}/	Update an existing task
+PATCh /todos/{task_id}/	Update an existing task
 
 DELETE /todos/{task_id}/	Delete a task
 
