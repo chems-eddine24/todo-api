@@ -28,11 +28,11 @@ Perfect for learning CRUD operations and understanding FastAPI basics.
 
 ### Clone the repository:
 ```bash
-    git clone https://github.com/chems-eddine24/todo_api.git
+git clone https://github.com/chems-eddine24/todo_api.git
   ```
 ### Navigate to the project directory:
 ```bash
-    cd todo_api
+cd todo_api
 ```
 ### Install dependencies:
 ```
