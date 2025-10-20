@@ -27,25 +27,28 @@ Perfect for learning CRUD operations and understanding FastAPI basics.
 ## Setup & Run :
 
 ### Clone the repository:
-
-• git clone https://github.com/chems-eddine24/todo_api.git
-  
+```bash
+    git clone https://github.com/chems-eddine24/todo_api.git
+  ```
 ### Navigate to the project directory:
-• cd todo_api
-
+```bash
+    cd todo_api
+```
 ### Install dependencies:
-• pip install fastapi uvicorn
-
+```
+pip install fastapi uvicorn
+```
 ### Run the application:
-• uvicorn main:app --reload
-
+```
+ uvicorn main:app --reload
+```
 The API will be available at:
 
 http://127.0.0.1:8000
 
 ### API Endpoints :
 • Method	Endpoint	Description :
-
+```
 ##### GET	/	Welcome message
 
 ##### GET	/todos/	Retrieve all tasks
@@ -59,7 +62,7 @@ http://127.0.0.1:8000
 ##### DELETE	/todos/{task_id}/	Delete a task
 
 ##### GET	/todos/search	Search tasks by status or title
-
+```
 ### Project Structure :
 
 todo_api/
