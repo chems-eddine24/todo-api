@@ -29,7 +29,7 @@ def get_task_by_id(task_id: int):
    for task in todo:
       if task.id == task_id:
          return task
-   raise HTTPException(status_code=404, detail="Task Id not found!")
+   raise HTTPException(status_code=404, detail="Task not found!")
 
 @app.patch('/todos/{task_id}/')
 def edit_task(task_id: int, edit_task: EditTask):
@@ -40,7 +40,7 @@ def edit_task(task_id: int, edit_task: EditTask):
         task.status = edit_task.status
         task.Date = edit_task.Date
         return task
-   raise HTTPException(status_code=404, detail="Task Id not found!")
+   raise HTTPException(status_code=404, detail="Task not found!")
 
 @app.delete('/todos/{task_id}/')
 def delete_task(task_id: int):
@@ -48,7 +48,7 @@ def delete_task(task_id: int):
       if task.id == task_id:
          todo.remove(task)
          return {"message": "Task deleted successfully"}
-   raise HTTPException(status_code=404, detail="Task Id not found!")
+   raise HTTPException(status_code=404, detail="Task not found!")
 
 @app.get("/todos/search")
 def get_todos_by_status_and_title(status: Optional[str] = None, title: Optional[str] = None):
