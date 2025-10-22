@@ -34,10 +34,22 @@ $ git clone https://github.com/chems-eddine24/todo_api.git
 ```bash
 $ cd todo_api
 ```
-### Install dependencies:
+### Install dependencies with Pipenv:
+Make sure you have Pipenv installed. If not:
 ```
-$ pip install fastapi uvicorn
+$ pip install pipenv
 ```
+Then install all dependencies:
+```
+pipenv install
+```
+This will automatically create a virtual environment and install everything from the Pipfile.lock
+
+Activate the virtual environment:
+```
+pipenv shell
+```
+
 ### Run the application:
 ```
 $ uvicorn main:app --reload
@@ -66,10 +78,18 @@ GET	/todos/search	 Search tasks by status or title
 ### Project Structure :
 
 todo_api/
-
-    ├── main.py
-    ├── models.py
-    └── README.md
+```
+│
+├── .gitignore
+├── Pipfile
+├── Pipfile.lock
+├── README.md
+│
+├── todo.py          # Main FastAPI app (entry point)
+├── schemas.py       # Pydantic models / data validation
+│
+└── __pycache__/     # (ignored by Git)
+```
     
 ### Author :
 https://github.com/chems-eddine24
