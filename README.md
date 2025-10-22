@@ -85,8 +85,8 @@ todo_api/
 ├── Pipfile.lock
 ├── README.md
 │
-├── todo.py          # Main FastAPI app (entry point)
-├── schemas.py       # Pydantic models / data validation
+├── todo.py          
+├── schemas.py       
 │
 └── __pycache__/     # (ignored by Git)
 ```
