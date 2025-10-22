@@ -1,5 +1,5 @@
 from fastapi import FastAPI, HTTPException
-from Projects.Models import *
+from schemas import *
 from typing import Optional
 
 
