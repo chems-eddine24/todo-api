@@ -41,13 +41,13 @@ $ pip install pipenv
 ```
 Then install all dependencies:
 ```
-pipenv install
+$ pipenv install
 ```
 This will automatically create a virtual environment and install everything from the Pipfile.lock
 
 Activate the virtual environment:
 ```
-pipenv shell
+$ pipenv shell
 ```
 
 ### Run the application:
