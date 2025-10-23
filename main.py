@@ -19,21 +19,13 @@ def get_all_tasks():
 
 @app.post("/todos/", response_model=Task)
 def create_task(add_task: AddTask):
-<<<<<<< HEAD
-    task = Task(id=len(todo) + 1, **add_task.dict())
-=======
     task = Task(**add_task.dict())
->>>>>>> b9b8331 (changed simple id to uuid4)
     todo.append(task)
     return task
 
 
 @app.get('/todos/{task_id}/')
-<<<<<<< HEAD
-def get_task_by_id(task_id: int):
-=======
 def get_task_by_id(task_id: str):
->>>>>>> b9b8331 (changed simple id to uuid4)
    for task in todo:
       if task.id == task_id:
          return task
