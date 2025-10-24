@@ -29,7 +29,6 @@ Perfect for learning CRUD operations and understanding FastAPI basics.
 ### Make sure you have **docker** installed, then run:
 ```
 $ docker run -d -p 8000:8000 --name web chemseddine24/todo-app
-
 ```
 #### this command will :
 
