@@ -72,16 +72,15 @@ GET	/todos/search	 Search tasks by status or title
 
 todo_api/
 ```
-│
+|── .dockerignore
 ├── .gitignore
 ├── Pipfile
 ├── Pipfile.lock
 ├── README.md
-│
+├── Dockerfile
 ├── todo.py          
 ├── schemas.py       
-│
-└── __pycache__/     # (ignored by Git)
+└── __pycache__/    
 ```
     
 ### Author :
