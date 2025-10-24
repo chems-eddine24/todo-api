@@ -36,7 +36,7 @@ $ docker run -d -p 8000:8000 --name web chemseddine24/todo-app
 ##### create a new container "web" 
 ##### start the fastapi app automatically
 
-### if you want to start or stop the app manualy :
+### if you want to start or stop the app manually :
 ```
 $ docker start web
 
