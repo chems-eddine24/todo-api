@@ -34,29 +34,21 @@ $ git clone https://github.com/chems-eddine24/todo_api.git
 ```bash
 $ cd todo_api
 ```
-### Install dependencies with Pipenv:
-Make sure you have Pipenv installed. If not:
+### Build the docker image:
 ```
-$ pip install pipenv
-```
-Then install all dependencies:
-```
-$ pipenv install
-```
-This will automatically create a virtual environment and install everything from the Pipfile.lock
-
-Activate the virtual environment:
-```
-$ pipenv shell
+$ docker build -t todo-app .
 ```
 
-### Run the application:
+### Run the container:
 ```
-$ uvicorn main:app --reload
+$ docker run -d -p 8000:8000 todo-app
 ```
 The API will be available at:
 
 http://127.0.0.1:8000
+
+Open the API docs:
+Visit -> http://localhost:8000/docs
 
 ### API Endpoints :
 • Method	Endpoint	Description :
