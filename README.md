@@ -26,28 +26,22 @@ Perfect for learning CRUD operations and understanding FastAPI basics.
 
 ## Setup & Run :
 
-### Clone the repository:
-```bash
-$ git clone https://github.com/chems-eddine24/todo_api.git
-  ```
-### Navigate to the project directory:
-```bash
-$ cd todo_api
+### Make sure you have **docker** installed, then run:
 ```
-### Build the docker image:
-```
-$ docker build -t todo-app .
-```
+$ docker run -d -p 8000:8000 --name web chemseddine24/todo-app
 
-### Run the container:
 ```
-$ docker run -d -p 8000:8000 todo-app
-```
-The API will be available at:
+#### this command will :
+
+##### download the image chemseddine24/todo-app from docker hub
+##### create a new container "web" 
+##### start the fastapi app automatically
+
+### The API will be available at:
 
 http://127.0.0.1:8000
 
-Open the API docs:
+### Open the API docs:
 
 Visit -> http://localhost:8000/docs
 
