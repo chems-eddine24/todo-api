@@ -69,7 +69,7 @@ todo_api/
 todo-api/
 ├── app/
 │   ├── main.py          
-│   └── schemas.py # Python dependencies
+│   └── schemas.py 
 ├── Dockerfile           
 ├── docker-compose.yml   
 ├── Pipfile / Pipfile.lock 
