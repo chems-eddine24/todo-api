@@ -26,21 +26,15 @@ Perfect for learning CRUD operations and understanding FastAPI basics.
 
 ## Setup & Run :
 
-### Make sure you have **docker** installed, then run:
+### Clone the repository:
 ```
-$ docker run -d -p 8000:8000 --name web chemseddine24/todo-app
+$ git clone https://github.com/chemseddine24/todo-api.git
+
+$ cd todo-api
 ```
-#### this command will :
-
-##### download the image chemseddine24/todo-app from docker hub
-##### create a new container "web" 
-##### start the fastapi app automatically
-
-### if you want to start or stop the app manually :
+## Make sure you have docker installed, then build and run the container with:
 ```
-$ docker start web
-
-$ docker stop web
+$ docker compose up
 ```
 
 ### The API will be available at:
@@ -53,7 +47,7 @@ Visit -> http://localhost:8000/docs
 
 ### API Endpoints :
 • Method	Endpoint	Description :
-```
+````
 GET	/Welcome message
 
 GET	/todos/	Retrieve all tasks
@@ -62,25 +56,24 @@ GET	/todos/{task_id}/	Get task by ID
 
 POST /todos/	Create a new task
 
-PATCh /todos/{task_id}/	Update an existing task
+PATCH /todos/{task_id}/	Update an existing task
 
 DELETE /todos/{task_id}/	Delete a task
 
 GET	/todos/search	 Search tasks by status or title
-```
+````
 ### Project Structure :
 
 todo_api/
 ```
-|── .dockerignore
-├── .gitignore
-├── Pipfile
-├── Pipfile.lock
-├── README.md
-├── Dockerfile
-├── todo.py          
-├── schemas.py       
-└── __pycache__/    
+todo-api/
+├── app/
+│   ├── main.py          
+│   └── schemas.py # Python dependencies
+├── Dockerfile           
+├── docker-compose.yml   
+├── Pipfile / Pipfile.lock 
+└── README.md
 ```
     
 ### Author :
