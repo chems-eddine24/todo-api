@@ -1,0 +1,8 @@
+services:
+  backend:
+    build: ./Projects
+    image: chemseddine24/todo-app
+    ports:
+       - "8000:8000"
+    volumes:
+      - ./app:/app
