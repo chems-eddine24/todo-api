@@ -1,7 +1,8 @@
 from pydantic import BaseModel, Field
 from typing import Optional
 from datetime import date
-from uuid import uuid4
+from uuid import UUID
+import uuid
 
 class AddTask(BaseModel):
     title: str
@@ -15,6 +16,6 @@ class EditTask(BaseModel):
     status: Optional[str] = None
     Date: Optional[date] = None
 
-class Task(AddTask):
-    id: str = Field(default_factory=lambda: str(uuid4()))
+class TaskR(AddTask):
+    id: UUID = Field(default_factory=uuid.uuid4)
     
