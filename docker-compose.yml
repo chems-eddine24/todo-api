@@ -1,8 +1,24 @@
 services:
   backend:
-    build: ./Projects
+    build: .
     image: chemseddine24/todo-app
+    container_name: backend-1
     ports:
        - "8000:8000"
     volumes:
-      - ./app:/app
+      - .:/app
+    environment:
+      - PYTHONUNBUFFERED=1
+  db:
+    image: postgres:15
+    container_name: backend_service
+    restart: always
+    environment:
+      POSTGRES_USER: chemseddine
+      POSTGRES_PASSWORD: chemsou
+      POSTGRES_DB: chemseddine
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+
+volumes:
+  pg_data:

@@ -1,8 +1,8 @@
 from fastapi import FastAPI, HTTPException, Depends
 from requests import Session
-from schemas import *
+from app.schemas import *
 from typing import Optional
-from db import *
+from app.db import *
 from sqlalchemy import create_engine
 
 
