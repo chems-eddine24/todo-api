@@ -3,10 +3,9 @@ from sqlalchemy.orm import declarative_base, sessionmaker
 import sqlalchemy as sa
 import uuid
 from sqlalchemy.dialects.postgresql import UUID as UUid
-DATABASE_URL = "postgresql+psycopg2://chemseddine:chemsou@localhost:5432/chemseddine"
+import os
 
-
-engine = create_engine(DATABASE_URL)
+engine = create_engine(os.getenv("DATABASE_URL"))
 conn = engine.connect()
 Base = declarative_base()
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)

@@ -4,11 +4,11 @@ from app.schemas import *
 from typing import Optional
 from app.db import *
 from sqlalchemy import create_engine
+import os
 
 
 
-
-engine = create_engine(DATABASE_URL)
+engine = create_engine(os.getenv("DATABASE_URL"))
 conn = engine.connect()
 
 
