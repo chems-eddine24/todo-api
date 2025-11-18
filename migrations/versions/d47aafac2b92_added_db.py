@@ -1,8 +1,8 @@
-"""added a db
+"""added db
 
-Revision ID: 9690711caa48
+Revision ID: d47aafac2b92
 Revises: 
-Create Date: 2025-11-04 18:43:37.148454
+Create Date: 2025-11-09 21:19:00.093911
 
 """
 from typing import Sequence, Union
@@ -12,7 +12,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision: str = '9690711caa48'
+revision: str = 'd47aafac2b92'
 down_revision: Union[str, Sequence[str], None] = None
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
@@ -22,13 +22,12 @@ def upgrade() -> None:
     """Upgrade schema."""
     op.create_table(
         'tasks',
-        sa.Column('id', sa.Uuid, primary_key=True, index=True),
+        sa.Column('id', sa.dialects.postgresql.UUID(as_uuid=True), primary_key=True, default=sa.text('gen_random_uuid()')),
         sa.Column('title', sa.String, index=True),
         sa.Column('description', sa.String, index=True),
         sa.Column('status', sa.String, index=True),
-        sa.Column('created_date', sa.DateTime, server_default=sa.func.now())
+        sa.Column('Date', sa.DateTime, server_default=sa.func.now())
     )
-    
 
 def downgrade() -> None:
     """Downgrade schema."""

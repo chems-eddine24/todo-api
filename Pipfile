@@ -7,9 +7,13 @@ name = "pypi"
 fastapi = "*"
 uvicorn = "*"
 requests = "*"
-sqlalchemy = "*"
 psycopg2 = "*"
 psycopg2-binary = "*"
+python-dotenv = "*"
+alembic = "*"
+sqlalchemy = {extras = ["asyncio"], version = "*"}
+asyncpg = "*"
+passlib = "*"
 
 [dev-packages]
 

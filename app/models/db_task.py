@@ -1,15 +1,9 @@
-from sqlalchemy import Column, Integer, create_engine, text, MetaData, func, String
-from sqlalchemy.orm import declarative_base, sessionmaker
+from app.db.core import *
+from sqlalchemy import func
 import sqlalchemy as sa
 import uuid
 from sqlalchemy.dialects.postgresql import UUID as UUid
-import os
 
-engine = create_engine(os.getenv("DATABASE_URL"))
-conn = engine.connect()
-Base = declarative_base()
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-metadata = MetaData()
 
 
 class Task(Base):
