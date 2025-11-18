@@ -9,7 +9,7 @@ services:
       - .:/app
     environment:
       - PYTHONUNBUFFERED=1
-      - DATABASE_URL=postgresql+asyncpg://chemseddine:chemsou123@db:5432/chemseddine
+      - DATABASE_URL=${ASYNC_DB_URL}
     depends_on:
       - db
     command: >
@@ -20,9 +20,9 @@ services:
     container_name: db
     restart: always
     environment:
-      POSTGRES_USER: chemseddine
-      POSTGRES_PASSWORD: chemsou123
-      POSTGRES_DB: chemseddine
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
     ports:
       - "5433:5432"
     volumes:
