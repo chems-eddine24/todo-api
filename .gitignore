@@ -6,6 +6,7 @@ __pycache__/
 # Pipenv / Virtual environments
 venv/
 .venv/
+.env
 
 # VS Code
 .vscode/
