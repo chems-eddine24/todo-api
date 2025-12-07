@@ -28,6 +28,7 @@ def upgrade() -> None:
         sa.Column('status', sa.String, index=True),
         sa.Column('Date', sa.DateTime, server_default=sa.func.now())
     )
+    op.alter_column
 
 def downgrade() -> None:
     """Downgrade schema."""
