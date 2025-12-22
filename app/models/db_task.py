@@ -1,10 +1,10 @@
-from app.db.core import *
+from app.core.db_core import *
 from sqlalchemy import func
 import sqlalchemy as sa
 import uuid
 from sqlalchemy.dialects.postgresql import UUID as UUid
-
-
+from sqlalchemy.orm import relationship
+from sqlalchemy import DateTime
 
 class Task(Base):
     __tablename__ = 'tasks'
@@ -12,4 +12,6 @@ class Task(Base):
     title = sa.Column(sa.String, index=True)
     description = sa.Column(sa.String, index=True)
     status = sa.Column(sa.String, index=True)
-    Date = sa.Column(sa.DateTime, server_default=func.now())
+    date = sa.Column(DateTime(timezone=True), nullable=False)
+    user_id = sa.Column(UUid(as_uuid=True), sa.ForeignKey('users.id'))
+    user = relationship("User", back_populates="tasks")

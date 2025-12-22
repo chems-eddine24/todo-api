@@ -1,8 +1,7 @@
 from fastapi import Depends, HTTPException, status, Request
-from fastapi.security import OAuth2PasswordBearer
-from passlib.context import CryptContext
+from app.core.auth_config import *
 from datetime import datetime, timedelta, timezone
-from app.db.core import get_db
+from app.core.db_core import get_db
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.models.db_user import User
@@ -14,16 +13,8 @@ from fastapi import Request
 load_dotenv()
 
 
-SECRET_KEY = os.getenv("SECRET_KEY")
-ALGORITHM = os.getenv("ALGORITHM")
-ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES"))
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/users/login")
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
-def get_password_hash(password: str) -> str:
-    return pwd_context.hash(password)
-def verify_password(plain_password: str, hashed_password: str) -> bool:
-    return pwd_context.verify(plain_password, hashed_password)
+
 
 async def authenticate_user(db: AsyncSession, username: str, password: str):
     result = await db.execute(select(User).where(User.email == username))

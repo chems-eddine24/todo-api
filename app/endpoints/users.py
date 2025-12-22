@@ -1,12 +1,12 @@
 from fastapi import APIRouter, HTTPException, Depends, Response
 from sqlalchemy import select
-from app.db.core import AsyncSessionLocal, get_db
+from app.core.db_core import AsyncSessionLocal, get_db
 from app.models.db_user import User
-from app.schemas.schemas_user import UserCreate, UserR, Token
+from app.schemas.schemas_user import UserCreate, UserR
 from sqlalchemy.ext.asyncio import AsyncSession
 from fastapi.security import OAuth2PasswordRequestForm
 from app.endpoints.auth import *
-
+from service.users_service import UsersService
 
 
 
@@ -14,21 +14,7 @@ router = APIRouter(prefix="/users", tags=["users"])
 
 @router.post('/register', response_model=UserR)
 async def register_user(user: UserCreate, db: AsyncSession = Depends(get_db)):
-    query = await db.execute(select(User).where(User.email == user.email))
-    existing_user = query.scalars().first()
-    if existing_user:
-        raise HTTPException(
-            detail="User with this email already exists",
-            status_code=400
-        )
-    user = User(
-        email=user.email,
-        password_hash=get_password_hash(user.password)
-    )
-    
-    db.add(user)
-    await db.commit()
-    await db.refresh(user)
+    user = await UsersService(db).register_user(email=user.email, password_hash=get_password_hash(user.password))
     return user
 
 @router.post('/login')
@@ -71,8 +57,7 @@ async def refresh_access_token(response: Response, request: Request, db: AsyncSe
         )
     payload = verify_refresh_token(refresh_token)
     user_id = payload.get("sub")
-    query = await db.execute(select(User).where(User.id == user_id))
-    user = query.scalars().first()
+    user = await UsersService(db).login_user(user_id=user_id)
     if not user:
         raise HTTPException(
             status_code=401,

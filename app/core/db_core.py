@@ -1,10 +1,8 @@
-import asyncpg
 from sqlalchemy.orm import declarative_base
 from sqlalchemy import MetaData
 from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker
 import os
 from dotenv import load_dotenv
-import asyncio
 
 load_dotenv()
 
