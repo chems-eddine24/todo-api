@@ -2,7 +2,9 @@ from typing import  Optional
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
 from app.models.db_user import User
-import uuid
+
+
+
 class UsersRepository:
     def __init__(self, db: AsyncSession):
         self.db = db
@@ -15,7 +17,9 @@ class UsersRepository:
         )
         
         self.db.add(user)
-        await self.db.commit()
-        await self.db.refresh(user)
+        return user
+    
+    async def login_user(self, user_id: str):
+        user = await self.db.execute(select(User).where(User.id == user_id))
         return user
 

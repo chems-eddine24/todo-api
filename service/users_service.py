@@ -3,7 +3,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from repository.users_repository import UsersRepository
 from app.models.db_user import User
 from sqlalchemy import select
-from fastapi import HTTPException
+
 
 
 class UsersService:
@@ -12,9 +12,10 @@ class UsersService:
         self.repository = UsersRepository(db)
 
     async def register_user(self, email: str, password_hash: str) -> User:
-        query = await self.db.execute(select(User).where(User.email == email))
-        existing_user = query.scalars().first()
-        if existing_user:
-            raise HTTPException(status_code=400, detail="Email already registered")
-        user = await self.repository.register_user(email, password_hash)
+        user = UsersRepository(db=self.db).register_user(email=email, password_hash=password_hash)
         return user
+    
+    async def login_user(self, user_id: str):
+        user = UsersRepository(db=self.db).login_user(user_id=user_id)
+        return user
+

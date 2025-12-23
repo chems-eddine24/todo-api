@@ -40,8 +40,7 @@ class TaskService:
         task.status = edit_task_data.status if edit_task_data.status is not None else task.status
         task.date = edit_task_data.date if edit_task_data.date is not None else task.date
 
-        await self.db.commit()
-        await self.db.refresh(task)
+        
         return task
 
     async def get_task_by_id(self, task_id, user_id: str) -> Optional[TaskR]:

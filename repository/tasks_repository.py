@@ -1,9 +1,9 @@
-
+from app.core.db_core import get_db
 from typing import List, Optional
 from app.models.db_task import Task
-from app.schemas.schemas_task import  EditTask
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
+from fastapi import Depends
 
 
 class TasksRepository:
