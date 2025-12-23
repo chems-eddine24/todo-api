@@ -1,10 +1,9 @@
 from repository.tasks_repository import TasksRepository
-from fastapi import  HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
 from typing import Optional
 from app.schemas.schemas_task import AddTask, TaskR, EditTask
 from app.models.db_task import Task
-import uuid
+from app.core.error_handler import ErrorHandler
 
 class TaskService:
     def __init__(self, db: AsyncSession):
@@ -14,13 +13,12 @@ class TaskService:
     async def get_all_tasks(self, user_id: str) -> list[TaskR]:
         tasks = await self.tasks_repository.get_all_tasks(user_id)
         if not tasks:
-            raise HTTPException(status_code=404, detail="No tasks found!")
+            return ErrorHandler.handle_task_not_found()
         return tasks
 
     async def create_task(self, user_id: str, task_data: AddTask) -> TaskR:
         if task_data.title is None or task_data.title == "":
-            raise HTTPException(status_code=400, detail="Task should have a valide title!")
-        
+            return ErrorHandler.handle_no_title_provided()        
         task = Task(
             title=task_data.title,
             description=task_data.description,
@@ -33,7 +31,7 @@ class TaskService:
     async def edit_task(self, task_id: str, edit_task_data: EditTask, user_id: str) -> Optional[TaskR]:
         task = await self.tasks_repository.get_task_by_id(task_id, user_id)
         if not task:
-           raise HTTPException(404, "Task not found")
+            return ErrorHandler.handle_task_not_found()
         
         task.title = edit_task_data.title if edit_task_data.title is not None else task.title
         task.description = edit_task_data.description if edit_task_data.description is not None else task.description
@@ -44,26 +42,25 @@ class TaskService:
         return task
 
     async def get_task_by_id(self, task_id, user_id: str) -> Optional[TaskR]:
-        task = await self.tasks_repository.get_task_by_id(task_id, user_id)
-        if not task:
-            raise HTTPException(status_code=404, detail="Task not found")
-        return task
+        try:
+            return await self.tasks_repository.get_task_by_id(task_id, user_id)
+        except Exception as e:
+            return ErrorHandler.handle_task_not_found()
 
-    async def delete_task(self, task_id, user_id: str) -> bool:
-        if type(task_id) != type(uuid.uuid4()):
-            raise HTTPException(status_code=400, detail="Invalid task ID format")
-        deleted_task = await self.tasks_repository.delete_task(task_id, user_id)
-        if not deleted_task:
-            raise HTTPException(status_code=404, detail="Task not found")
-        return True
+    async def delete_task(self, task_id, user_id: str) -> dict:
+        try:
+            task_to_delete = await self.tasks_repository.delete_task(task_id, user_id)
+            return {'message': 'Task deleted successfully'} if task_to_delete else ErrorHandler.handle_task_not_found()
+        except Exception as e:
+            return ErrorHandler.handle_task_not_found()
 
     async def get_tasks_by_status_and_title(self, user_id: str, status: Optional[str] = None, title: Optional[str] = None) -> Optional[TaskR]:
         if not status and not title:
-            raise HTTPException(status_code=400, detail="At least one filter (status or title) must be provided")
+            return ErrorHandler.handle_status_title_filter_missing()
         
         tasks = await self.tasks_repository.get_tasks_by_status_and_title(user_id, status, title)
         if not tasks:
-            raise HTTPException(status_code=404, detail="No tasks found with the given criteria")
+            return ErrorHandler.handle_no_tasks_with_criteria()
         return tasks
         
 
