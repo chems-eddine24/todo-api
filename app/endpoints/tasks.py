@@ -1,4 +1,4 @@
-from fastapi import APIRouter, HTTPException, Depends
+from fastapi import APIRouter, Depends
 from typing import Optional
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.core.db_core import get_db
@@ -6,7 +6,6 @@ from app.schemas.schemas_task import TaskR, AddTask, EditTask
 from app.models.db_user import User
 from app.endpoints.auth import get_current_user
 from service.tasks_service import TaskService
-from app.core.error_handler import ErrorHandler
 
 router = APIRouter(prefix="/todos", tags=["todos"])
 
