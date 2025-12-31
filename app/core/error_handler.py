@@ -1,7 +1,7 @@
 
 from fastapi import HTTPException
 
-class ErrorHandler:
+class TaskHandler:
     @staticmethod
     def handle_user_not_found():
         raise HTTPException(status_code=404, detail="User not found")
@@ -21,3 +21,27 @@ class ErrorHandler:
     @staticmethod
     def handle_no_tasks_with_criteria():
         raise HTTPException(status_code=404, detail="No tasks found with the given criteria")
+    
+class UserHandler:
+
+    @staticmethod
+    def wrong_email_or_password():
+        raise HTTPException(status_code=400, detail="Wrong Email or Password!")
+    
+    @staticmethod
+    def refrsh_token_error():
+        raise HTTPException(status_code=401, detail="Refresh Token Missing!")
+    
+    @staticmethod
+    def user_not_found():
+        raise HTTPException(status_code=404, detail="User Not Found")
+    
+    @staticmethod
+    def existing_user_error():
+        raise HTTPException(status_code=404, detail="Existing User With This Email!")
+    
+    @staticmethod
+    def email_error():
+        raise HTTPException(status_code=404, detail="Email Required!")
+    
+    
