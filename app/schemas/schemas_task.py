@@ -11,10 +11,11 @@ class AddTask(BaseModel):
     date: datetime
 
 class EditTask(BaseModel):
-    title: Optional[str] = None
-    description: Optional[str] = None
-    status: Optional[str] = None
+    title: Optional[str] = ""
+    description: Optional[str] = ""
+    status: Optional[str] = ""
     date: Optional[datetime] = None
+    
 
 class TaskR(AddTask):
     id: UUID = Field(default_factory=uuid.uuid4)
