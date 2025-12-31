@@ -2,7 +2,6 @@ from typing import Optional
 from sqlalchemy.ext.asyncio import AsyncSession
 from repository.users_repository import UsersRepository
 from app.models.db_user import User
-from sqlalchemy import select
 
 
 
