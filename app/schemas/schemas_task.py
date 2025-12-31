@@ -15,7 +15,8 @@ class EditTask(BaseModel):
     description: Optional[str] = ""
     status: Optional[str] = ""
     date: Optional[datetime] = None
-    
+    class Config:
+        extra = "forbid"
 
 class TaskR(AddTask):
     id: UUID = Field(default_factory=uuid.uuid4)
