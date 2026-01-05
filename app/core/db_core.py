@@ -1,14 +1,11 @@
 from sqlalchemy.orm import declarative_base
 from sqlalchemy import MetaData
 from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker, AsyncSession
-import os
-from dotenv import load_dotenv
+from app.core.config import settings
 
-load_dotenv()
 
-ASYNC_DATABASE_URL = os.getenv("ASYNC_DB_URL")
 
-engine = create_async_engine(ASYNC_DATABASE_URL, echo=True) 
+engine = create_async_engine(settings.ASYNC_DATABASE_URL, echo=True) 
 AsyncSessionLocal = async_sessionmaker(autocommit=False, autoflush=False, bind=engine, class_=AsyncSession ,expire_on_commit=False)
 Base = declarative_base()
 metadata = MetaData()
