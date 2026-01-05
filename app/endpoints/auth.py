@@ -1,85 +1,31 @@
-from fastapi import APIRouter, HTTPException, Depends, Response
-from app.core.db_core import  get_db
+from fastapi import APIRouter, Depends, Response, Request
 from app.models.db_user import User
 from app.schemas.schemas_user import UserCreate, UserR
-from sqlalchemy.ext.asyncio import AsyncSession
 from fastapi.security import OAuth2PasswordRequestForm
-from app.core.auth_config import *
-from service.users_service import UsersService
-
+from app.dependencies.factories import get_auth_service, get_user_service
+from app.core.security import get_current_user
+from app.services.auth_service import AuthService
+from app.services.users_service import UsersService
 
 
 router = APIRouter(prefix="/users", tags=["users"])
 
 @router.post('/register', response_model=UserR)
-async def register_user(user: UserCreate, db: AsyncSession = Depends(get_db)):
-    user = await UsersService(db).register_user(email=user.email, password_hash=get_password_hash(user.password))
-    return user
+async def register_user(user: UserCreate, user_service: UsersService = Depends(get_user_service)):
+    return await user_service.register_user(user)
 
 @router.post('/login')
-async def login_for_access_token(response: Response, form_data: OAuth2PasswordRequestForm = Depends(), db: AsyncSession = Depends(get_db)):
-    user = await UsersService(db).login_user(form_data.username, form_data.password)
-    access_token = create_access_token(user_id=str(user.id))
-    refresh = create_refresh_token(subject=str(user.id)) 
-    response.set_cookie(
-        key="access_token",
-        value=access_token,
-        httponly=True,
-        samesite="lax",
-        max_age=1800,
-        secure=False,
-        path='/'
-    )
-    response.set_cookie(
-        key="refresh_token",
-        value=refresh,
-        httponly=True,
-        samesite="lax",
-        max_age=7*24*60*60,
-        secure=False,
-        path='/'
-    )
-    return {'message':f'welcome {user.email}'}
+async def login_for_access_token(response: Response, form_data: OAuth2PasswordRequestForm = Depends(), auth_service: AuthService = Depends(get_auth_service)):
+    return await auth_service.login_for_access_token(response, form_data.username, form_data.password)
 
 @router.post('/refresh')
-async def refresh_access_token(response: Response, request: Request, db: AsyncSession = Depends(get_db)):
-    refresh_token = request.cookies.get("refresh_token")
-    if not refresh_token:
-        raise HTTPException(
-            status_code=401,
-            detail="Refresh token missing",
-        )
-    payload = verify_refresh_token(refresh_token)
-    user_id = payload.get("sub")
-    new_access_token = create_access_token(user_id=user_id)
-    new_refresh_token = create_refresh_token(subject=user_id)
-
-    response.set_cookie(
-        key="access_token",
-        value=new_access_token,
-        httponly=True,
-        samesite="lax",
-        max_age=1800,
-        secure=False,
-        path='/'
-    )
-    response.set_cookie(
-        key="refresh_token",
-        value=new_refresh_token,
-        httponly=True,
-        samesite="lax",
-        max_age=7*24*60*60,
-        secure=False,
-        path='/'
-    )
-    return {'message': 'access token refreshed successfully'}
+async def refresh_access_token(response: Response, request: Request, auth_service: AuthService = Depends(get_auth_service)):
+    return await auth_service.refresh_access_token(response, request)
 
 @router.get('/me', response_model=UserR)
 async def about_current_user(current_user: User = Depends(get_current_user)):
     return current_user
 
 @router.delete('/logout')
-async def logout_user(response: Response):
-    response.delete_cookie(key="access_token")
-    response.delete_cookie(key="refresh_token")
-    return {"message": "Logged out"}
+async def logout_user(response: Response, auth_service: AuthService = Depends(get_auth_service)):
+    return await auth_service.logout(response)
