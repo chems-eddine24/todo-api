@@ -3,7 +3,7 @@ from sqlalchemy import MetaData
 from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker, AsyncSession
 import os
 from dotenv import load_dotenv
-from contextlib import contextmanager
+
 load_dotenv()
 
 ASYNC_DATABASE_URL = os.getenv("ASYNC_DB_URL")
