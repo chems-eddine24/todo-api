@@ -1,5 +1,4 @@
-from pydantic import BaseModel, Field
-from typing import Optional
+from pydantic import BaseModel, Field, ConfigDict
 from uuid import UUID
 import uuid
 
@@ -8,11 +7,11 @@ class UserCreate(BaseModel):
     password: str
 
 class UserR(BaseModel):
-    id: UUID = Field(default_factory=uuid.uuid4)
+    id: UUID 
     email: str
 
     class Config:
-        from_attributes = True
+        model_config = ConfigDict(from_attributes=True)
         
 class Token(BaseModel):
     access_token: str
