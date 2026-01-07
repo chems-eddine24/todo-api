@@ -2,13 +2,13 @@ from fastapi import APIRouter, Depends, Response, Request
 from app.models.db_user import User
 from app.schemas.schemas_user import UserCreate, UserR
 from fastapi.security import OAuth2PasswordRequestForm
-from app.dependencies.factories import get_auth_service, get_user_service
+from app.dependencies.factories import *
 from app.core.security import get_current_user
 from app.services.auth_service import AuthService
 from app.services.users_service import UsersService
 
 
-router = APIRouter(prefix="/users", tags=["users"])
+router = APIRouter(prefix="/api/auth", tags=["auth"])
 
 @router.post('/register', response_model=UserR)
 async def register_user(user: UserCreate, user_service: UsersService = Depends(get_user_service)):
