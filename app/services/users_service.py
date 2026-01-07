@@ -1,8 +1,8 @@
-from app.core.error_handler import UserHandler
+from app.core.exceptions import AppError, ErrorCode
 from app.repositories.users_repository import UsersRepository
+from fastapi import status
 from app.models.db_user import User
 from app.schemas.schemas_user import UserCreate
-from app.core.security import authenticate_user
 from app.services.base_service import BaseService
 from app.core.security import get_password_hash, verify_password
 
@@ -17,9 +17,17 @@ class UsersService(BaseService):
             password_hash=get_password_hash(data.password)
             )
         if await self.user_repo.get_user_by_email(user.email):
-            return UserHandler.existing_user_error()
+            raise AppError(
+                message='the email address given is already used by an another account',
+                error_code=ErrorCode.USER_ALREADY_EXISTS,
+                status_code=status.HTTP_403_FORBIDDEN
+            )
         if user.email is None or user.email == "":
-            return UserHandler.email_error()
+            raise AppError(
+                message='you must enter an email to register',
+                error_code=ErrorCode.NO_EMAIL_PROVIDED,
+                status_code=status.HTTP_400_BAD_REQUEST
+            )
         user = await self.user_repo.register_user(user=user)
         return user
     

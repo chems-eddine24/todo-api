@@ -1,15 +1,19 @@
-from fastapi import Depends, Response
+from fastapi import Response
 from app.services.base_service import BaseService
 from app.core.security import *
 from app.services.users_service import UsersService
 
 
 class AuthService(BaseService):
+    def __init__(self, session):
+        super().__init__(session)
+        self.user_service = UsersService(session)
 
     async def login_for_access_token(self, response: Response, email, password):
-        user = await UsersService(self.session).login_user(email=email, password=password)
-        access_token = create_access_token(user_id=str(user.id))
-        refresh_token = create_refresh_token(subject=str(user.id))
+        user = await self.user_service.login_user(email=email, password=password)
+        user_id = user.id
+        access_token = create_access_token(user_id=str(user_id))
+        refresh_token = create_refresh_token(subject=str(user_id))
         response.set_cookie(
             key="access_token",
             value=access_token,
