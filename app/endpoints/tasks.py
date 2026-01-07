@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, status
 from typing import Optional
 from app.schemas.schemas_task import TaskR, AddTask, EditTask
 from app.models.db_user import User
@@ -6,13 +6,13 @@ from app.core.security import get_current_user
 from app.services.tasks_service import TaskService
 from app.dependencies.factories import get_task_service
 
-router = APIRouter(prefix="/todos", tags=["todos"])
+
+router = APIRouter(prefix="/api/tasks", tags=["tasks"])
 
 @router.get("/", response_model=list[TaskR])
 async def get_all_tasks(current_user: User = Depends(get_current_user), task_service: TaskService = Depends(get_task_service)):
-    tasks = await task_service.get_all_tasks(current_user.id)
-    return tasks
-
+    return await task_service.get_all_tasks(current_user.id)
+   
 
 @router.post("/", response_model=TaskR)
 async def create_task(add_task: AddTask, current_user: User = Depends(get_current_user), task_service: TaskService = Depends(get_task_service)):
