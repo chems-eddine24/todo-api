@@ -1,6 +1,6 @@
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
-from app.endpoints import auth, tasks
+from app.endpoints import tasks, users
 from app.core.exceptions import AppError
 
 app = FastAPI(title="Todo API")
@@ -16,6 +16,6 @@ async def app_error_handler(request: Request, exc: AppError):
         },
     )
 app.include_router(tasks.router)
-app.include_router(auth.router)
+app.include_router(users.router)
 
 
