@@ -6,7 +6,6 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from jose import jwt, JWTError
 from jwt.exceptions import InvalidTokenError, ExpiredSignatureError
 from app.repositories.users_repository import UsersRepository
-from app.repositories.base_repository import BaseRepository
 from app.core.config import settings
 
 
@@ -18,17 +17,11 @@ def get_password_hash(password: str) -> str:
 def verify_password(plain_password: str, password_hash: str) -> bool:
         return settings.pwd_context.verify(plain_password, password_hash)
 
-def authenticate_user(email: str, password: str, db: AsyncSession = Depends(get_db)):
-    user = UsersRepository.get_user_by_email(email=email)
-    if not user or not verify_password(password, get_password_hash(password=password)):
-        return False
-    return user
-
 def create_access_token(user_id: str, expires_delta: timedelta | None = None):
     if expires_delta:
-        expire = datetime.utcnow() + expires_delta
+        expire = datetime.now(timezone.utc) + expires_delta
     else:
-        expire = datetime.utcnow() + timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
+        expire = datetime.now(timezone.utc) + timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
     payload = {"sub": str(user_id), "exp": expire, "type": "access"}
     token = jwt.encode(payload, settings.SECRET_KEY, algorithm=settings.ALGORITHM)
     return token
