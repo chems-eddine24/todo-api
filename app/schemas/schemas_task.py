@@ -15,7 +15,7 @@ class EditTask(BaseModel):
     description: Optional[str] = ""
     status: Optional[str] = ""
     date: Optional[datetime] = None
-    class Config:
+    class ConfigDict:
         extra = "forbid"
 
 class TaskR(AddTask):
