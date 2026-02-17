@@ -17,6 +17,12 @@ passlib = "*"
 pyjwt = "*"
 python-jose = "*"
 python-multipart = "*"
+httpx = "*"
+pytest = "*"
+pytest-asyncio = "*"
+pymysql = "*"
+cryptography = "*"
+aiosqlite = "*"
 
 [dev-packages]
 
