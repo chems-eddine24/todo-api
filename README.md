@@ -7,13 +7,21 @@ A production-ready Todo REST API built with FastAPI featuring JWT authentication
 ## Features :
 
 • User registration & login
+
 • JWT authentication (Access + Refresh tokens)
+
 • HTTP-only cookie-based auth
+
 • Create, update, delete, and list tasks
+
 • Protected routes
+
 • Async endpoints
+
 • Docker 
+
 • Pytest test suite
+
 • Clean architecture
 
 ---
@@ -21,10 +29,15 @@ A production-ready Todo REST API built with FastAPI featuring JWT authentication
 ## Tech Stack :
 
 • Framework: FastAPI  
+
 • Database: PostgreSQL
+
 • ORM: SQLAlchemy
+
 • Authentication: JWT
+
 • Testing: Pytest
+
 • Containerization: Docker & Docker Compose
 
 
