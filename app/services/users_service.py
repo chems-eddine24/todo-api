@@ -4,7 +4,7 @@ from fastapi import status, Response, Request, HTTPException
 from app.models.db_user import User
 from app.schemas.schemas_user import UserCreate
 from app.services.base_service import BaseService
-from app.core.security import (get_password_hash, verify_password, create_access_token, create_refresh_token, verify_access_token, verify_refresh_token)
+from app.core.security import (get_password_hash, verify_password, create_access_token, create_refresh_token, verify_refresh_token)
 
 class UsersService(BaseService):
     def __init__(self, session):
@@ -28,12 +28,12 @@ class UsersService(BaseService):
                 error_code=ErrorCode.NO_EMAIL_PROVIDED,
                 status_code=status.HTTP_400_BAD_REQUEST
             )
-        user = await self.user_repo.register_user(user=user)
+        user_register = await self.user_repo.register_user(user=user)
         return user
     
     async def login_user(self, email: str, password: str):
-        user = await self.user_repo.get_user_by_email(email)
-        if not user or not verify_password(password, get_password_hash(password)):
+        user = await self.user_repo.get_user_by_email(email=email)
+        if not user or not verify_password(password, user.password_hash):
             return False
         return user
     async def login_for_access_token(self, response: Response, email, password):
@@ -65,7 +65,7 @@ class UsersService(BaseService):
            secure=False,
            path='/'
            )
-        return {'message':f"welcome {user.email} "}
+        return {"email":user.email}
     
     async def refresh_access_token(self, response: Response, request: Request):
         refresh_token = request.cookies.get("refresh_token")
