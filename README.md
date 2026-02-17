@@ -8,7 +8,7 @@ A production-ready Todo REST API built with FastAPI featuring JWT authentication
 
 • User registration & login
 
-• JWT authentication (Access + Refresh tokens)
+• JWT authentication 
 
 • HTTP-only cookie-based auth
 
