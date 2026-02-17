@@ -14,7 +14,7 @@ class UsersRepository(BaseRepository):
         await self.session.refresh(user)
         return user
     
-    async def get_user_by_email(self, email: str) -> UserR :
+    async def get_user_by_email(self, email: str):
        user = await self.session.execute(select(User).where(User.email == email))
        return user.scalars().first()
     
