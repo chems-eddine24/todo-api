@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, status
+from fastapi import APIRouter, Depends
 from typing import Optional
 from app.schemas.schemas_task import TaskR, AddTask, EditTask
 from app.models.db_user import User
@@ -26,7 +26,7 @@ async def get_task_by_id(task_id, current_user: User = Depends(get_current_user)
     
 
 @router.patch("/{task_id}/", response_model=TaskR)
-async def edit_task(task_id: str, edit_task: EditTask, current_user: User = Depends(get_current_user),task_service: TaskService = Depends(get_task_service)):
+async def edit_task(task_id: str, edit_task: EditTask, current_user: User = Depends(get_current_user), task_service: TaskService = Depends(get_task_service)):
     return await task_service.edit_task(task_id, edit_task, current_user.id)
 
 @router.delete("/{task_id}/")
