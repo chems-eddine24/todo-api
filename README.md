@@ -54,7 +54,6 @@ $ cd todo-api
 ## run migrations inside the docker container:
 ```
 $ docker exec -it todo_api alembic upgrade head
-
 ```
 
 ## Make sure you have docker installed, then build and run the container with:
