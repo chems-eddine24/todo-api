@@ -1,26 +1,32 @@
 # Todo List API
 
-A simple Todo List API built with **FastAPI**.  
-It allows users to create, read, update, and delete tasks — all stored in memory (no database required).  
-Perfect for learning CRUD operations and understanding FastAPI basics.
+A production-ready Todo REST API built with FastAPI featuring JWT authentication, HTTP-only cookies, and full endpoint testing with Pytest.
 
 ---
 
 ## Features :
 
-• Create, read, update, and delete tasks  
-• Search tasks by title or status  
-• Manage tasks with unique IDs  
-• Lightweight and beginner-friendly
+• User registration & login
+• JWT authentication (Access + Refresh tokens)
+• HTTP-only cookie-based auth
+• Create, update, delete, and list tasks
+• Protected routes
+• Async endpoints
+• Docker 
+• Pytest test suite
+• Clean architecture
 
 ---
 
 ## Tech Stack :
 
-• Python 3.13  
-• FastAPI  
-• Pydantic  
-• Uvicorn
+• Framework: FastAPI  
+• Database: PostgreSQL
+• ORM: SQLAlchemy
+• Authentication: JWT
+• Testing: Pytest
+• Containerization: Docker & Docker Compose
+
 
 ---
 
@@ -32,6 +38,11 @@ $ git clone https://github.com/chemseddine24/todo-api.git
 
 $ cd todo-api
 ```
+## run migrations inside the docker container:
+```
+$ alembic upgrade head
+```
+
 ## Make sure you have docker installed, then build and run the container with:
 ```
 $ docker compose up
@@ -45,33 +56,25 @@ http://127.0.0.1:8000
 
 Visit -> http://localhost:8000/docs
 
-### API Endpoints :
-• Method	Endpoint	Description :
-````
-GET	/Welcome message
 
-GET	/todos/	Retrieve all tasks
-
-GET	/todos/{task_id}/	Get task by ID
-
-POST /todos/	Create a new task
-
-PATCH /todos/{task_id}/	Update an existing task
-
-DELETE /todos/{task_id}/	Delete a task
-
-GET	/todos/search	 Search tasks by status or title
-````
 ### Project Structure :
 
 todo_api/
 ```
 todo-api/
 ├── app/
-│   ├── main.py          
-│   └── schemas.py 
+    ├── core/
+    └── dependecies/
+    └── endpoints/
+    └── models/
+    └── repositories/
+    └── schemas/
+    └── services/
+└── migrations/
+└── tests/
 ├── Dockerfile           
-├── docker-compose.yml   
+├── docker-compose.yml
+└── pyproject.toml 
 ├── Pipfile / Pipfile.lock 
 └── README.md
 ```
